@@ -1,0 +1,553 @@
+// import java.util.Scanner;
+
+// public class fibonacci {
+
+//     static long recursiveSteps = 0;
+
+//     // Recursive approach
+//     static long fibonacciRecursive(int n) {
+
+//         if (n <= 1) {
+//             return n;
+//         }
+
+//         recursiveSteps++;
+
+//         return fibonacciRecursive(n - 1)
+//              + fibonacciRecursive(n - 2);
+//     }
+
+//     // Non-recursive (Iterative) approach
+//     static void fibonacciIterative(int n) {
+
+//         long a = 0, b = 1, c;
+//         long steps = 0;
+
+//         System.out.println("\nNon-Recursive Fibonacci:");
+
+//         for (int i = 0; i < n; i++) {
+
+//             System.out.print(a + " ");
+
+//             if (i < n - 1) {
+//                 c = a + b;
+//                 steps++;
+
+//                 a = b;
+//                 b = c;
+//             }
+//         }
+
+//         System.out.println("\nStep Count: " + steps);
+//     }
+
+//     public static void main(String[] args) {
+
+//         Scanner sc = new Scanner(System.in);
+
+//         System.out.print("Enter number of terms: ");
+//         int n = sc.nextInt();
+
+//         if (n <= 0) {
+//             System.out.println("Enter a positive number.");
+//             sc.close();
+//             return;
+//         }
+
+//         // Iterative approach
+//         fibonacciIterative(n);
+
+//         // Recursive approach
+//         System.out.println("\nRecursive Fibonacci:");
+
+//         recursiveSteps = 0;
+
+//         for (int i = 0; i < n; i++) {
+//             System.out.print(fibonacciRecursive(i) + " ");
+//         }
+
+//         System.out.println("\nStep Count: " + recursiveSteps);
+
+//         sc.close();
+//     }
+// }
+
+
+// // Practical 1 – Complete dry run
+// // Input:
+// // Enter number of terms: 5
+
+
+// // Our input is:
+// // \[
+// // n=5
+// // \]
+
+// // Part 1. Execution starts from main()
+// // First, Java executes:
+// // Scanner sc = new Scanner(System.in);
+
+// // System.out.print("Enter number of terms: ");
+// // int n = sc.nextInt();
+
+
+// // - Scanner object is created.
+// // - User enters 5.
+// // - n = 5.
+// // Next:
+// // if (n <= 0) {
+// //     System.out.println("Enter a positive number.");
+// //     sc.close();
+// //     return;
+// // }
+
+
+// // Condition:
+// // \[
+// // 5 \leq 0 \quad \text{False}
+// // \]
+
+// // So the program continues.
+// // Part 2. Non-recursive approach
+// // Now this statement executes:
+// // fibonacciIterative(n);
+
+
+// // It calls:
+// // fibonacciIterative(5);
+
+
+// // Step 1: Initialize variables
+// // long a = 0, b = 1, c;
+// // long steps = 0;
+
+
+// // Initial values:
+// // Variable	Value
+// // a	0
+// // b	1
+// // c	Not initialized
+// // steps	0
+// // n	5
+
+// // Step 2: Print the first two numbers
+// // Our corrected iterative method is:
+// // if (n >= 1) {
+// //     System.out.print(a + " ");
+// // }
+
+// // if (n >= 2) {
+// //     System.out.print(b + " ");
+// // }
+
+
+// // Since n = 5:
+// // - 5 >= 1 → True → prints 0.
+// // - 5 >= 2 → True → prints 1.
+// // Current output:
+// // 0 1
+
+
+// // Notice that we have already printed the first two Fibonacci numbers. No additions have been performed yet.
+// // Step 3: Execute the for loop
+// // for (int i = 2; i < n; i++) {
+
+
+// // The loop starts at i = 2 because the first two terms are already printed.
+
+// // It continues while i is less than 5.
+
+// // Inside the loop:
+// // c = a + b;
+// // steps++;
+
+// // System.out.print(c + " ");
+
+// // a = b;
+// // b = c;
+
+
+// // Let's dry-run every iteration.
+// // Iterative dry run
+// // i	a	b	c = a+b	steps
+// // 2	0	1	1	1
+// // 3	1	1	2	2
+// // 4	1	2	3	3
+
+// // Iteration 1: i = 2
+// // - c = 0 + 1 = 1
+// // - steps = 1
+// // - Print 1
+// // - a = 1, b = 1
+
+// // Iteration 2: i = 3
+// // - c = 1 + 1 = 2
+// // - steps = 2
+// // - Print 2
+// // - a = 1, b = 2
+
+// // Iteration 3: i = 4
+// // - c = 1 + 2 = 3
+// // - steps = 3
+// // - Print 3
+// // - a = 2, b = 3
+
+
+// // Now i becomes 5.
+
+// // Condition:
+// // \[
+// // 5 < 5 \quad \text{False}
+// // \]
+
+// // Loop terminates.
+// // Iterative final result
+// // Non-Recursive Fibonacci:
+// // 0 1 1 2 3
+
+// // Step Count: 3
+
+
+// // Why is the step count 3?
+// // \[
+// // T(n)=n-2
+// // \]
+
+// // \[
+// // T(5)=5-2=\boxed{3}
+// // \]
+
+
+// // Part 3. Recursive approach
+// // Now execution returns to main().
+
+// // The following statement executes:
+// // System.out.println("\nRecursive Fibonacci:");
+
+
+// // Then:
+// // recursiveSteps = 0;
+
+
+// // Our recursive counter is initialized to zero.
+
+// // Now comes the important part:
+// // for (int i = 0; i < n; i++) {
+// //     System.out.print(fibonacciRecursive(i) + " ");
+// // }
+
+
+// // Since n = 5, the loop calls the recursive function five times:
+// // 1. fibonacciRecursive(0)
+// // 2. fibonacciRecursive(1)
+// // 3. fibonacciRecursive(2)
+// // 4. fibonacciRecursive(3)
+// // 5. fibonacciRecursive(4)
+// // Important: The counter is not reset between these calls. All five calls contribute to the same total.
+// // Call 1: fibonacciRecursive(0)
+// // if (n <= 1) {
+// //     return n;
+// // }
+
+
+// // Condition:
+// // \[
+// // 0 \leq 1 \quad \text{True}
+// // \]
+
+// // Returns 0.
+
+// // No addition occurs.
+// // \[
+// // recursiveSteps=0
+// // \]
+
+// // Call 2: fibonacciRecursive(1)
+// // Condition:
+// // \[
+// // 1 \leq 1 \quad \text{True}
+// // \]
+
+// // Returns 1.
+
+// // No addition occurs.
+// // \[
+// // recursiveSteps=0
+// // \]
+
+// // Call 3: fibonacciRecursive(2)
+// // Function call:
+// // fibonacciRecursive(2)
+
+
+// // Condition:
+// // \[
+// // 2 \leq 1 \quad \text{False}
+// // \]
+
+// // So execution reaches:
+// // recursiveSteps++;
+
+
+// // Counter becomes 1.
+
+// // Now:
+// // return fibonacciRecursive(1)
+// //      + fibonacciRecursive(0);
+
+
+// // Let's expand:
+// // Call tree for F(2)
+// // F(2)
+
+// // F(1) = 1
+// // F(0) = 0
+
+
+// // \[
+// // F(2)=1+0=1
+// // \]
+
+// // 1 addition
+
+// // Returns 1.
+
+// // Current counter = 1.
+// // Call 4: fibonacciRecursive(3)
+// // Function call:
+// // fibonacciRecursive(3)
+
+
+// // Base condition is false.
+
+// // Counter becomes:
+// // \[
+// // recursiveSteps=2
+// // \]
+
+// // Now:
+// // return fibonacciRecursive(2)
+// //      + fibonacciRecursive(1);
+
+
+// // Expand F(2):
+// // \[
+// // F(3)=F(2)+F(1)
+// // \]
+
+// // \[
+// // =(F(1)+F(0))+F(1)
+// // \]
+
+// // Count the additions:
+// // - Addition in F(3) = 1.
+// // - Addition in F(2) = 1.
+// // Total = 2.
+// // Call tree for F(3)
+// // F(3)
+
+// // F(2)
+// // F(1) = 1
+
+// // F(1) = 1
+// // F(0) = 0
+
+
+// // 2 additions
+
+// // Returns:
+// // \[
+// // F(3)=1+1=2
+// // \]
+
+// // Current counter = 2.
+// // Call 5: fibonacciRecursive(4)
+// // This is the most important dry run.
+
+// // Function call:
+// // fibonacciRecursive(4)
+
+
+// // Base condition is false.
+
+// // Counter becomes 3.
+
+// // Now:
+// // return fibonacciRecursive(3)
+// //      + fibonacciRecursive(2);
+
+
+// // Expand both calls.
+// // \[
+// // F(4)=F(3)+F(2)
+// // \]
+
+// // Expand F(3):
+// // \[
+// // F(4)=(F(2)+F(1))+F(2)
+// // \]
+
+// // Expand both F(2) calls:
+// // \[
+// // F(4)=((F(1)+F(0))+F(1))+(F(1)+F(0))
+// // \]
+
+// // Now count every addition:
+// // Operation	Addition
+// // F(4) combines F(3) and F(2)	1
+// // F(3) combines F(2) and F(1)	1
+// // First F(2) combines F(1) and F(0)	1
+// // Second F(2) combines F(1) and F(0)	1
+// // Total	4
+
+// // Call tree for F(4)
+// // F(4)
+
+// // F(3)
+
+// // F(2)
+
+
+// // F(2)
+// // F(1)
+// // F(1)
+// // F(0)
+
+// // F(1)
+// // F(0)
+// // F(1)
+// // F(0)
+
+
+// // 4 additions
+
+// // Returns:
+// // \[
+// // F(4)=2+1=3
+// // \]
+
+// // Current counter = 4 for this particular call.
+
+// // Part 4. Final recursive step count
+// // Let's combine all five calls.
+// // Function call	Returned value	Additions in that call	Cumulative counter
+// // F(0)	0	0	0
+// // F(1)	1	0	0
+// // F(2)	1	1	1
+// // F(3)	2	2	3
+// // F(4)	3	4	7
+
+// // Therefore:
+// // \[
+// // T(n)=0+0+1+2+4
+// // \]
+
+// // \[
+// // \boxed{T(5)=7}
+// // \]
+
+// // The recursive series is:
+// // 0 1 1 2 3
+
+
+// // Recursive step count = 7.
+
+// // Part 5. Complete program output
+// // Enter number of terms: 5
+
+// // Non-Recursive Fibonacci:
+// // 0 1 1 2 3
+// // Step Count: 3
+
+// // Recursive Fibonacci:
+// // 0 1 1 2 3
+// // Step Count: 7
+
+
+// // Part 6. What happens after that?
+// // After the recursive loop finishes:
+// // System.out.println("\nStep Count: " + recursiveSteps);
+
+
+// // The program prints 7.
+
+// // Then:
+// // sc.close();
+
+
+// // The Scanner is closed, and the program terminates.
+
+// // Part 7. Most important things to remember for your practical
+// // For input n = 5
+// // Iterative additions3
+// // \(n-2\)
+
+// // Recursive additions7
+// // Sum of all recursive calls
+
+
+// // - Both approaches print the same Fibonacci series.
+// // - Iteration uses a loop.
+// // - Recursion uses function calls.
+// // - Iterative approach avoids repeated calculations.
+// // - Recursive approach recalculates the same values.
+// // - The step count counts additions, not every statement.
+
+
+import java.util.Scanner;
+
+public class fibonacci {
+
+    // Recursive method
+    static int fibonacciRecursive(int n) {
+
+        if (n <= 1) {
+            return n;
+        }
+
+        return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+    }
+
+    // Non-recursive (Iterative) method
+    static void fibonacciIterative(int n) {
+
+        int a = 0, b = 1, c;
+
+        System.out.println("Non-Recursive Fibonacci:");
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.print(a + " ");
+
+            c = a + b;
+            a = b;
+            b = c;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of terms: ");
+        int n = sc.nextInt();
+
+        if (n <= 0) {
+            System.out.println("Enter a positive number.");
+            sc.close();
+            return;
+        }
+
+        // Calling iterative method
+        fibonacciIterative(n);
+
+        // Calling recursive method
+        System.out.println("\n\nRecursive Fibonacci:");
+
+        for (int i = 0; i < n; i++) {
+            System.out.print(fibonacciRecursive(i) + " ");
+        }
+
+        sc.close();
+    }
+}

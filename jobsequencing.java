@@ -1,0 +1,87 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class jobsequencing {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter number of jobs: ");
+        int n = sc.nextInt();
+
+        int[] deadline = new int[n];
+        int[] profit = new int[n];
+        int[] job = new int[n];
+
+        for (int i = 0; i < n; i++) {
+
+            job[i] = i + 1;
+
+            System.out.print("Enter deadline and profit for Job " + (i + 1) + ": ");
+            deadline[i] = sc.nextInt();
+            profit[i] = sc.nextInt();
+        }
+
+        // Sort jobs in decreasing order of profit
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+
+                if (profit[j] < profit[j + 1]) {
+
+                    int temp = profit[j];
+                    profit[j] = profit[j + 1];
+                    profit[j + 1] = temp;
+
+                    temp = deadline[j];
+                    deadline[j] = deadline[j + 1];
+                    deadline[j + 1] = temp;
+
+                    temp = job[j];
+                    job[j] = job[j + 1];
+                    job[j + 1] = temp;
+                }
+            }
+        }
+
+        int maxDeadline = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (deadline[i] > maxDeadline) {
+                maxDeadline = deadline[i];
+            }
+        }
+
+        int[] slot = new int[maxDeadline + 1];
+        Arrays.fill(slot, -1);
+
+        int totalProfit = 0;
+
+        // Schedule jobs using greedy method
+        for (int i = 0; i < n; i++) {
+
+            for (int j = deadline[i]; j >= 1; j--) {
+
+                if (slot[j] == -1) {
+
+                    slot[j] = job[i];
+                    totalProfit += profit[i];
+                    break;
+                }
+            }
+        }
+
+        System.out.println("\nScheduled Jobs:");
+
+        for (int i = 1; i <= maxDeadline; i++) {
+
+            if (slot[i] != -1) {
+                System.out.print("Job " + slot[i] + " ");
+            }
+        }
+
+        System.out.println("\nMaximum Profit: " + totalProfit);
+
+        sc.close();
+    }
+}
