@@ -1,0 +1,844 @@
+DAA PRACTICALS – COMPLETE THEORY & EXTERNAL VIVA NOTES
+Java | Quick revision + conceptual questions
+============================================================
+
+CONTENTS
+1. Fibonacci Series – Iterative and Recursive
+2. Job Sequencing with Deadlines – Greedy
+3. Fractional Knapsack – Greedy
+4. 0/1 Knapsack – Dynamic Programming
+5. Binomial Coefficients – Dynamic Programming
+6. 8-Queens – Backtracking
+7. N-Queens – Backtracking
+8. Quick Sort – Deterministic and Randomized
+
+------------------------------------------------------------
+PRACTICAL 1: FIBONACCI SERIES (ITERATIVE AND RECURSIVE)
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is the Fibonacci series?
+A sequence in which each term after the first two is the sum of the previous two terms.
+Example: 0, 1, 1, 2, 3, 5, 8, 13, ...
+
+2. What are the first two Fibonacci numbers?
+Usually 0 and 1. Some definitions start with 1 and 1; state the convention used by your program.
+
+3. What is recursion?
+A technique in which a method calls itself to solve a smaller version of the same problem.
+
+4. What is an iterative approach?
+An approach that uses loops such as for or while instead of repeated method calls.
+
+5. What is the base case?
+The stopping condition of recursion. For Fibonacci, common base cases are fib(0)=0 and fib(1)=1.
+
+6. Why is a base case necessary?
+Without it, recursive calls would continue indefinitely until a stack overflow occurs.
+
+7. What is the recurrence relation?
+F(n) = F(n-1) + F(n-2), with F(0)=0 and F(1)=1.
+
+8. What is the time complexity of the simple recursive Fibonacci method?
+O(2^n) as a commonly used upper-bound description. It repeats many calculations.
+
+9. What is the time complexity of iterative Fibonacci?
+O(n), because it calculates each term once.
+
+10. What is the space complexity?
+Iterative: O(1) auxiliary space. Simple recursive: O(n) call-stack space due to recursion depth.
+
+11. Why is recursion slower here?
+The same values are calculated repeatedly, and each method call has overhead.
+
+12. How can recursive Fibonacci be optimized?
+Memoization or dynamic programming can store previously calculated values and reduce time to O(n).
+
+13. What is a stack overflow?
+An error that occurs when the program uses more call-stack memory than is available, often due to excessive recursion.
+
+14. Where is Fibonacci used?
+Mathematics, algorithm examples, recurrence analysis, and some computational models. Avoid claiming it is directly used in every real-world system.
+
+15. What is the difference between recursion and iteration?
+Recursion uses method calls and a base case; iteration uses loops. Iteration generally uses less call-stack memory.
+
+QUICK VIVA
+- Fibonacci is an example of a recurrence relation.
+- The iterative method is generally more space-efficient.
+- Simple recursion has overlapping subproblems.
+- Memoization stores results; tabulation builds results from smaller cases.
+
+------------------------------------------------------------
+PRACTICAL 2: JOB SEQUENCING WITH DEADLINES – GREEDY
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is Job Sequencing with Deadlines?
+A scheduling problem in which each job has a deadline and a profit. Each job takes one unit of time, and the goal is to maximize total profit by completing jobs before their deadlines.
+
+2. What information is given for each job?
+A job ID, deadline, and profit.
+
+3. What is a deadline?
+The latest time slot by which a job must be completed to earn its profit.
+
+4. What is a greedy algorithm?
+An algorithm that makes the best-looking local choice at each step, hoping to obtain a globally optimal solution.
+
+5. What is the greedy choice in Job Sequencing?
+Usually, consider jobs in decreasing order of profit and place each job in the latest available slot on or before its deadline.
+
+6. Why schedule a job in the latest available slot?
+It leaves earlier slots free for jobs with tighter deadlines.
+
+7. Why sort jobs by decreasing profit?
+This prioritizes jobs that provide higher profit.
+
+8. Why is this a greedy problem?
+The algorithm makes a locally optimal choice—selecting high-profit jobs—and the standard unit-time formulation supports an optimal greedy strategy.
+
+9. What is a time slot?
+A unit of time in which one job can be completed.
+
+10. Can two jobs be placed in the same slot?
+No. Only one unit-time job can occupy a slot.
+
+11. What happens if no slot is available before a job's deadline?
+That job is skipped because it cannot be scheduled feasibly.
+
+12. What is the objective?
+Maximize the total profit, not necessarily the number of jobs.
+
+13. Does every job need to be selected?
+No. Some jobs may be rejected because of limited slots or deadlines.
+
+14. What is the usual time complexity?
+With sorting O(n log n), followed by a simple backward slot search that can take O(n) per job, the common implementation is O(n²). Space is typically O(n) for the schedule.
+
+15. Can the implementation be optimized?
+Yes. Disjoint Set Union (DSU) can help find the latest available slot more efficiently after sorting.
+
+16. What assumption is important?
+The classic version assumes every job takes exactly one unit of time and earns its profit only if completed by its deadline.
+
+17. Give a simple example.
+If jobs have profits 100, 27, and 25 with suitable deadlines, the algorithm tries to schedule the highest-profit feasible jobs first. The actual schedule depends on the deadlines.
+
+QUICK VIVA
+- Strategy: Greedy.
+- Selection order: Descending profit.
+- Placement: Latest free slot before or at deadline.
+- Goal: Maximum total profit.
+- Classic assumption: Unit processing time.
+
+------------------------------------------------------------
+PRACTICAL 3: FRACTIONAL KNAPSACK – GREEDY
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is the Knapsack Problem?
+Given items with weights and profits and a bag with limited capacity, choose items to maximize total profit without exceeding capacity.
+
+2. What is Fractional Knapsack?
+Items can be divided. We may take a fraction of an item.
+
+3. Which technique solves Fractional Knapsack optimally?
+Greedy algorithm.
+
+4. What is the greedy criterion?
+Sort items by decreasing profit-to-weight ratio.
+
+5. What is the profit-to-weight ratio?
+Profit density = profit / weight. It tells us the profit obtained per unit of weight.
+
+6. Why choose the highest ratio first?
+It gives the maximum profit for each unit of capacity used.
+
+7. What if the whole item fits?
+Take the complete item and reduce the remaining capacity.
+
+8. What if the whole item does not fit?
+Take only the fraction that fits: fraction = remaining capacity / item weight.
+
+9. How is fractional profit calculated?
+Fractional profit = item profit × fraction taken.
+
+10. Can an item be divided?
+Yes. That is the main feature of Fractional Knapsack.
+
+11. What is the time complexity?
+O(n log n) when sorting the items by ratio dominates. The selection scan is O(n).
+
+12. What is the space complexity?
+Usually O(n) if a separate item structure or sorted copy is stored; it can be lower if sorting is in place.
+
+13. Is Greedy always optimal for 0/1 Knapsack?
+No. In 0/1 Knapsack, items cannot be divided. Choosing the highest ratio first may fail to give the maximum profit.
+
+14. Difference between Fractional and 0/1 Knapsack?
+Fractional: take any fraction; greedy by ratio is optimal.
+0/1: take all or none; dynamic programming is a standard exact solution.
+
+15. Give an example.
+Capacity = 50. Items: (weight 10, profit 60), (20, 100), (30, 120). Ratios are 6, 5, 4. Take first two fully and 20/30 of the third. Total profit = 60 + 100 + 80 = 240.
+
+16. Why is the answer in that example 240?
+The remaining capacity after the first two items is 20, so two-thirds of the third item can be taken, earning 120 × 2/3 = 80.
+
+QUICK VIVA
+- Greedy strategy: highest profit/weight ratio first.
+- Fractions are allowed.
+- Sorting: O(n log n).
+- Greedy is optimal for the fractional version, not generally for 0/1.
+
+------------------------------------------------------------
+PRACTICAL 4: 0/1 KNAPSACK – DYNAMIC PROGRAMMING
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is 0/1 Knapsack?
+Each item must either be selected completely (1) or not selected at all (0). Items cannot be divided.
+
+2. Why is it called 0/1?
+For each item, the decision is binary: include it or exclude it.
+
+3. Which technique is used?
+Dynamic Programming, commonly using tabulation.
+
+4. What is Dynamic Programming (DP)?
+A method that solves a problem by combining solutions to smaller subproblems and storing their results to avoid repeated calculations.
+
+5. What are the two key DP properties?
+Optimal substructure and overlapping subproblems.
+
+6. What is optimal substructure?
+An optimal solution can be built using optimal solutions to smaller subproblems.
+
+7. What are overlapping subproblems?
+The same smaller problems are encountered repeatedly.
+
+8. What is tabulation?
+A bottom-up DP method that fills a table starting from the smallest subproblems.
+
+9. What does dp[i][w] represent?
+The maximum profit obtainable using the first i items with knapsack capacity w.
+
+10. What are the base cases?
+With zero items or zero capacity, maximum profit is zero.
+
+11. What happens if the current item's weight is greater than capacity w?
+The item cannot be included, so dp[i][w] = dp[i-1][w].
+
+12. What happens if the item fits?
+Compare including and excluding it:
+dp[i][w] = max(profit[i-1] + dp[i-1][w-weight[i-1]], dp[i-1][w]).
+
+13. Why use i-1 in the arrays?
+The DP row i represents the first i items, but Java arrays start at index 0. Therefore, the current item is stored at index i-1.
+
+14. Why refer to the previous row?
+It ensures the current item is used at most once. Using the current row in the include case can accidentally allow repeated use.
+
+15. What is the time complexity?
+O(nW), where n is the number of items and W is the capacity.
+
+16. What is the space complexity?
+O(nW) for the two-dimensional DP table.
+
+17. Why is O(nW) called pseudo-polynomial?
+It depends on the numeric value W, not merely on the number of bits needed to represent W.
+
+18. Can space be optimized?
+Yes. A one-dimensional DP array can reduce space to O(W), updating capacities in descending order to prevent reusing an item.
+
+19. Why update one-dimensional DP from right to left?
+To make sure the current item is not counted more than once.
+
+20. Difference between Fractional and 0/1 Knapsack?
+Fractional allows parts and uses greedy by ratio. 0/1 allows only complete items or none and can be solved using DP.
+
+21. Example result.
+Weights 10, 20, 30; profits 60, 100, 120; capacity 50. The optimal selection is items of weights 20 and 30, giving profit 220.
+
+22. Is DP always better than Branch and Bound?
+Not always. DP has predictable O(nW) behavior for moderate capacity. Branch and Bound explores a state-space tree and prunes using bounds; its worst case can be exponential, but it can work well on some instances.
+
+QUICK VIVA
+- Technique: Dynamic Programming.
+- Method: Bottom-up tabulation.
+- State: dp[i][w].
+- Recurrence: maximum of include and exclude.
+- Time: O(nW); space: O(nW).
+
+------------------------------------------------------------
+PRACTICAL 5: BINOMIAL COEFFICIENT – DYNAMIC PROGRAMMING
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is a Binomial Coefficient?
+It represents the number of ways to choose r objects from n distinct objects when order does not matter.
+
+2. What is its notation?
+C(n,r), also written as nCr.
+
+3. What is the mathematical formula?
+C(n,r) = n! / (r! × (n-r)!).
+
+4. What does factorial mean?
+n! = n × (n-1) × ... × 2 × 1, and 0! = 1.
+
+5. What is the Pascal's Triangle relation?
+C(n,r) = C(n-1,r-1) + C(n-1,r).
+
+6. What are the base cases?
+C(n,0)=1 and C(n,n)=1.
+
+7. Why are the base cases equal to 1?
+There is exactly one way to choose no objects, and exactly one way to choose all n objects.
+
+8. Which algorithmic technique is used?
+Dynamic Programming, using bottom-up tabulation.
+
+9. What does dp[i][j] store?
+The binomial coefficient C(i,j).
+
+10. Why does the recurrence add two values?
+A selection either includes a particular object or excludes it. These two cases are disjoint, so their counts are added.
+
+11. Why use DP instead of calculating factorials?
+DP directly uses Pascal's recurrence and avoids repeated factorial calculations. It also demonstrates overlapping subproblems.
+
+12. What is the time complexity of a table limited to columns 0 through r?
+O(nr), because the implementation fills at most roughly (n+1)(r+1) cells.
+
+13. What is the space complexity?
+O(nr) for a table with n+1 rows and r+1 columns.
+
+14. What is the symmetry property?
+C(n,r) = C(n,n-r). Therefore, one can use the smaller of r and n-r in optimized implementations.
+
+15. What is Pascal's Triangle?
+A triangular arrangement where each inner number is the sum of the two numbers directly above it. Each row contains binomial coefficients.
+
+16. Example: Find C(5,2).
+C(5,2) = 5!/(2!×3!) = 10.
+
+17. What if r is greater than n?
+For the usual combinations interpretation, C(n,r)=0. A program may instead reject such input as invalid.
+
+18. Can int store every answer?
+No. Large binomial coefficients can exceed the range of Java int. Use long or BigInteger when larger values are required.
+
+QUICK VIVA
+- nCr counts combinations, not permutations.
+- Recurrence comes from Pascal's Triangle.
+- Base cases: C(n,0)=C(n,n)=1.
+- DP type: Bottom-up tabulation.
+- Complexity for the given table: O(nr) time and O(nr) space.
+
+------------------------------------------------------------
+PRACTICAL 6: 8-QUEENS – BACKTRACKING
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is the 8-Queens Problem?
+Place eight queens on an 8×8 chessboard so that no two queens attack each other.
+
+2. How does a queen move?
+A queen can move horizontally, vertically, and diagonally any number of squares.
+
+3. What conditions must be satisfied?
+No two queens can share the same row, column, or diagonal.
+
+4. Which technique is used?
+Backtracking.
+
+5. What is backtracking?
+A problem-solving technique that builds a solution step by step. If a choice leads to no valid solution, it undoes that choice and tries another.
+
+6. What is the general pattern?
+Choose → check → explore recursively → undo if unsuccessful.
+
+7. Why place one queen per row?
+It automatically prevents two queens from sharing a row and simplifies the search.
+
+8. What does isSafe(row,col) check?
+Whether the candidate square is free from attacks by queens already placed.
+
+9. Why check only upward directions?
+The algorithm places queens row by row from top to bottom. No queens have been placed in lower rows yet.
+
+10. Which directions are checked?
+The same column above, upper-left diagonal, and upper-right diagonal.
+
+11. What is the base case?
+When row == 8, all eight rows have been filled successfully, so a solution is found.
+
+12. What is the backtracking step in code?
+If solving the next row fails, set the current board cell back to empty (0) and try another column.
+
+13. Why must we remove a queen?
+The current placement may block all possibilities in later rows. Removing it allows the algorithm to explore another choice.
+
+14. What is a state-space tree?
+A tree representing possible choices at each step. Each level can represent the row currently being filled.
+
+15. What is pruning?
+Rejecting a partial solution as soon as it violates a constraint, rather than exploring it further.
+
+16. Does the program find all solutions?
+A program that returns immediately after the first successful arrangement finds only one solution. A version that continues searching can find all solutions.
+
+17. How many solutions does the standard 8-Queens problem have?
+92 solutions when rotations and reflections are counted as distinct; 12 fundamental solutions when equivalent symmetries are grouped.
+
+18. What is the approximate time complexity?
+A common upper-bound description for row-by-row backtracking is O(N×N!), with O(N) safety checking per candidate and pruning. Exact runtime depends on the search and implementation.
+
+19. What is the space complexity?
+O(N²) for the board and O(N) recursion depth.
+
+20. What if the first queen is fixed?
+The algorithm begins from the next row. It must find a valid completion compatible with that fixed position.
+
+QUICK VIVA
+- Technique: Backtracking.
+- One queen per row.
+- Check column and two upward diagonals.
+- Undo an unsafe path's previous choice.
+- Pruning avoids exploring invalid partial boards.
+
+------------------------------------------------------------
+PRACTICAL 7: N-QUEENS – BACKTRACKING
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is the N-Queens Problem?
+Place N queens on an N×N chessboard so that no two queens attack each other.
+
+2. How is it related to 8-Queens?
+8-Queens is a special case of N-Queens where N=8.
+
+3. Which technique is used?
+Backtracking.
+
+4. Why is it called a constraint-satisfaction problem?
+The solution must satisfy constraints: no shared row, column, or diagonal.
+
+5. Why is the board N×N?
+There are N rows and N columns, and the task is to place N queens.
+
+6. Why place one queen per row?
+It guarantees the row constraint automatically.
+
+7. What does the first queen's fixed position mean?
+The first queen is placed in a specified column of row 1 before recursion begins. The algorithm must complete the board without moving it.
+
+8. What does solve(row) do?
+It tries each column in the current row, places a queen if safe, and recursively solves the next row.
+
+9. What is the base case?
+If row == n, all N queens have been placed successfully.
+
+10. What is isSafe() responsible for?
+Checking the column above and both upward diagonals for an already placed queen.
+
+11. Why are lower rows not checked?
+They are still empty because rows are processed from top to bottom.
+
+12. What does returning false mean?
+No valid arrangement was found from the current partial placement, so the caller should undo its last choice and try another.
+
+13. What is the difference between 8-Queens and N-Queens?
+8-Queens always uses an 8×8 board and eight queens. N-Queens works for a general board size N.
+
+14. Does every N have a solution?
+For the standard problem, solutions exist for N=1 and all N≥4. There are no solutions for N=2 or N=3.
+
+15. Does every fixed first-row column work?
+No. Some fixed positions may prevent a solution, even when that board size has solutions.
+
+16. What is the time complexity?
+The search is exponential in nature. A common upper-bound description for the row-by-row approach is O(N×N!), with pruning reducing the explored search space.
+
+17. What is the space complexity?
+O(N²) for the board plus O(N) recursion stack.
+
+18. What is the difference between backtracking and brute force?
+Brute force may generate every possible arrangement and test it. Backtracking checks constraints during construction and abandons invalid partial arrangements early.
+
+19. What is the difference between backtracking and greedy?
+Greedy commits to a locally best choice without generally reconsidering it. Backtracking explores choices and reverses them when they fail.
+
+20. Why does the program print Q and -?
+They are display symbols: Q represents a queen and - represents an empty cell. Internally the board may store 1 and 0.
+
+QUICK VIVA
+- Generalized version of 8-Queens.
+- Board size: N×N.
+- Standard solutions exist for N=1 and N≥4.
+- N=2 and N=3 have no solution.
+- Fixed first queen may make a particular instance unsolvable.
+
+------------------------------------------------------------
+PRACTICAL 8: QUICK SORT – DETERMINISTIC AND RANDOMIZED
+------------------------------------------------------------
+
+CORE CONCEPTS
+
+1. What is sorting?
+Arranging data in a particular order, usually ascending or descending.
+
+2. What is Quick Sort?
+A divide-and-conquer sorting algorithm that selects a pivot, partitions the array around it, and recursively sorts the two parts.
+
+3. What is divide and conquer?
+A strategy that divides a problem into smaller subproblems, solves them, and combines their results.
+
+4. What is a pivot?
+The element chosen to divide the array into elements smaller than or equal to it and elements greater than it, according to the partition rule.
+
+5. What is partitioning?
+Rearranging the array so the pivot reaches its final sorted position and elements are placed on the appropriate sides.
+
+6. What happens after partitioning?
+Quick Sort recursively sorts the left and right subarrays. The pivot itself is already in its final position.
+
+7. What is the base condition?
+The subarray has zero or one element, represented by low >= high. Such a subarray is already sorted.
+
+8. What is deterministic Quick Sort?
+A version that chooses the pivot according to a fixed rule, such as always choosing the last element.
+
+9. What is randomized Quick Sort?
+A version that chooses the pivot randomly from the current subarray.
+
+10. What is the main difference between the two?
+Pivot selection. Both can use the same partition procedure and recursive calls.
+
+11. Why use a randomized pivot?
+It reduces the chance that a particular input order consistently causes highly unbalanced partitions. Its expected performance is O(n log n).
+
+12. Does randomized Quick Sort guarantee O(n log n) every time?
+No. Its worst case remains O(n²), although that case is less likely under random pivot selection.
+
+13. What is the best-case time complexity?
+O(n log n), when partitions are reasonably balanced.
+
+14. What is the average-case time complexity?
+O(n log n).
+
+15. What is the worst-case time complexity?
+O(n²), when partitions are repeatedly very unbalanced, such as sizes 0 and n-1.
+
+16. When can deterministic last-element-pivot Quick Sort perform poorly?
+For already sorted or reverse-sorted arrays with distinct values, because the chosen pivot repeatedly becomes an extreme element.
+
+17. What is the auxiliary space complexity?
+O(log n) recursion stack for balanced partitions; O(n) in the worst case due to recursion depth.
+
+18. Is Quick Sort in-place?
+Its partitioning is in-place in common implementations, but it still uses recursion stack space.
+
+19. Is Quick Sort stable?
+The usual in-place implementation is not stable. Equal elements may change their relative order.
+
+20. What is Lomuto partition?
+A partition scheme that commonly uses the last element as pivot and a boundary index to group elements less than or equal to the pivot.
+
+21. What is Hoare partition?
+A partition scheme that uses two scanning indices moving inward from opposite ends. It often performs fewer swaps, but its return value is used differently from Lomuto's.
+
+22. What does i represent in Lomuto partition?
+The boundary of the region containing elements less than or equal to the pivot.
+
+23. What does j represent?
+The scanning index that examines each element in the current subarray.
+
+24. Why copy the input array before timing each version?
+So both algorithms sort identical original data rather than the second algorithm receiving an already sorted array.
+
+25. What does System.nanoTime() do?
+It provides a high-resolution time reading suitable for measuring elapsed time. Subtract the start value from the end value.
+
+26. Does one timing run prove which algorithm is faster?
+No. Small inputs, JVM warm-up, system load, and random variation affect results. Use large inputs and multiple runs for a fairer comparison.
+
+27. What does Random.nextInt(bound) return?
+A pseudo-random integer from 0 inclusive to bound exclusive.
+
+28. How does Quick Sort compare with Merge Sort?
+Both have O(n log n) average/best performance. Merge Sort guarantees O(n log n) worst-case time but usually needs O(n) extra array space for arrays. Quick Sort is often in-place and cache-friendly but has O(n²) worst-case time.
+
+29. How does Quick Sort compare with Bubble Sort?
+Quick Sort is generally much faster for large arrays: average O(n log n) versus O(n²) for Bubble Sort.
+
+30. What happens when all values are equal in a Lomuto implementation using <= pivot?
+It can repeatedly create highly unbalanced partitions, resulting in O(n²) time. Three-way partitioning can handle many duplicate keys more efficiently.
+
+QUICK VIVA
+- Paradigm: Divide and conquer.
+- Deterministic version: fixed pivot rule.
+- Randomized version: random pivot.
+- Best/average: O(n log n).
+- Worst: O(n²).
+- Typical partitioning: in-place; recursion uses stack.
+- Standard Quick Sort is not stable.
+
+------------------------------------------------------------
+GENERAL DAA CONCEPTS – COMMON EXTERNAL QUESTIONS
+------------------------------------------------------------
+
+1. What is an algorithm?
+A finite, well-defined sequence of steps to solve a problem.
+
+2. What is DAA?
+Design and Analysis of Algorithms: the study of designing algorithms and evaluating their correctness and efficiency.
+
+3. What are the characteristics of an algorithm?
+Input, output, definiteness, finiteness, and effectiveness.
+
+4. What is time complexity?
+A measure of how an algorithm's running time grows with input size.
+
+5. What is space complexity?
+A measure of how memory usage grows with input size.
+
+6. What is Big-O notation?
+An asymptotic upper-bound notation commonly used to describe growth in the worst case.
+
+7. What is Omega notation?
+An asymptotic lower bound.
+
+8. What is Theta notation?
+A tight asymptotic bound, meaning the growth is bounded both above and below by the same order.
+
+9. What is best-case complexity?
+The minimum work for inputs of a given size.
+
+10. What is average-case complexity?
+The expected work over a specified distribution of inputs.
+
+11. What is worst-case complexity?
+The maximum work for inputs of a given size.
+
+12. What is brute force?
+Trying all candidate possibilities or directly applying a straightforward exhaustive method.
+
+13. What is a greedy algorithm?
+It repeatedly makes a locally optimal choice. It is correct only when the problem has the required greedy-choice property and optimal substructure.
+
+14. What is Dynamic Programming?
+It stores solutions to smaller subproblems and reuses them.
+
+15. What is Backtracking?
+It searches through possible solutions and undoes choices when a partial solution cannot lead to a valid complete solution.
+
+16. What is Branch and Bound?
+An optimization technique that explores a state-space tree and uses bounds to discard branches that cannot improve the current best solution.
+
+17. Difference between Backtracking and Branch and Bound?
+Backtracking commonly prunes based on constraint violations or inability to complete a valid solution. Branch and Bound prunes using objective-function bounds to avoid exploring solutions that cannot beat the current best.
+
+18. What is a state-space tree?
+A tree representing the sequence of choices that can lead to candidate solutions.
+
+19. What is recursion?
+A method solving a problem by calling itself on smaller inputs.
+
+20. What is a recurrence relation?
+An equation that defines a problem's result or running time using smaller input sizes.
+
+21. What is a stable sorting algorithm?
+A sorting algorithm that preserves the relative order of records with equal keys.
+
+22. What is an in-place algorithm?
+An algorithm that uses only a small amount of extra memory beyond the input, depending on the definition used.
+
+23. What is a subproblem?
+A smaller instance of the original problem.
+
+24. What is memoization?
+Top-down DP: store the result of a subproblem when it is first computed, then reuse it.
+
+25. What is tabulation?
+Bottom-up DP: fill a table from base cases toward the final answer.
+
+26. Difference between memoization and tabulation?
+Memoization is usually recursive and computes needed states on demand. Tabulation is usually iterative and fills states in a planned order.
+
+27. What is an optimal solution?
+A feasible solution with the best objective value, such as maximum profit or minimum cost.
+
+28. What is a feasible solution?
+A solution that satisfies all problem constraints.
+
+29. What is pruning?
+Avoiding exploration of a partial candidate that cannot produce a valid or better solution.
+
+30. What is an auxiliary space?
+Extra memory used by an algorithm, excluding the input storage under the stated convention.
+
+------------------------------------------------------------
+IMPORTANT COMPARISON TABLES
+------------------------------------------------------------
+
+1. GREEDY vs DYNAMIC PROGRAMMING vs BACKTRACKING
+
+Greedy:
+- Makes a locally best choice at each step.
+- Usually does not revisit choices.
+- Example: Fractional Knapsack, classic Job Sequencing.
+- Often efficient, but correctness depends on the problem.
+
+Dynamic Programming:
+- Solves and stores smaller subproblems.
+- Reuses overlapping results.
+- Example: 0/1 Knapsack, Binomial Coefficient, optimized Fibonacci.
+- Often uses a table or cache.
+
+Backtracking:
+- Explores possible choices.
+- Reverses a choice if it leads to failure.
+- Example: 8-Queens and N-Queens.
+- Prunes invalid partial solutions.
+
+2. TIME COMPLEXITY SUMMARY
+
+Fibonacci – iterative:
+- Time: O(n)
+- Auxiliary space: O(1)
+
+Fibonacci – simple recursion:
+- Time: O(2^n) upper-bound description
+- Auxiliary space: O(n)
+
+Job Sequencing – common simple implementation:
+- Time: O(n²), including sorting and slot search
+- Space: O(n)
+
+Fractional Knapsack:
+- Time: O(n log n)
+- Space: typically O(n), depending on representation/sorting
+
+0/1 Knapsack – 2D DP:
+- Time: O(nW)
+- Space: O(nW)
+
+Binomial Coefficient – table up to column r:
+- Time: O(nr)
+- Space: O(nr)
+
+N-Queens / 8-Queens:
+- Exponential search; common upper-bound description O(N×N!)
+- Board space: O(N²), recursion: O(N)
+
+Quick Sort:
+- Best: O(n log n)
+- Average: O(n log n)
+- Worst: O(n²)
+- Stack: O(log n) balanced, O(n) worst
+
+Note: Complexity can vary with the exact implementation. State the implementation assumptions when answering.
+
+3. WHICH PRACTICAL USES WHICH TECHNIQUE?
+
+- Fibonacci: Iteration and recursion.
+- Job Sequencing: Greedy.
+- Fractional Knapsack: Greedy.
+- 0/1 Knapsack: Dynamic Programming.
+- Binomial Coefficient: Dynamic Programming.
+- 8-Queens: Backtracking.
+- N-Queens: Backtracking.
+- Quick Sort: Divide and Conquer.
+
+------------------------------------------------------------
+COMMON JAVA QUESTIONS FOR DAA PRACTICALS
+------------------------------------------------------------
+
+1. What is an array?
+A fixed-size collection of elements of the same type, accessed using indices.
+
+2. What is an array index in Java?
+It starts from 0.
+
+3. What is a 2D array?
+An array of arrays, commonly used to represent a matrix or DP table.
+
+4. What does new int[n] do?
+Creates an integer array of length n; its elements are initialized to 0.
+
+5. What does new int[n][m] do?
+Creates a two-dimensional integer array with n rows and m columns.
+
+6. What is a static method?
+A method belonging to the class rather than an individual object. It can be called using the class context.
+
+7. Why is main declared public static void?
+public allows the runtime to access it; static means no object is required; void means it returns no value. String[] args receives command-line arguments.
+
+8. What is Scanner?
+A Java class used to read input, commonly from the keyboard using System.in.
+
+9. What does nextInt() do?
+Reads the next input token as an integer.
+
+10. What is a method parameter?
+A value passed to a method so it can perform an operation using that value.
+
+11. What is return?
+It sends a value back from a method, or exits a void method.
+
+12. Difference between print() and println()?
+print() does not automatically move to a new line; println() does.
+
+13. What is Math.max(a,b)?
+It returns the larger of the two values.
+
+14. What is an infinite recursion?
+Recursion that never reaches a stopping condition.
+
+15. What is an exception?
+An event that disrupts normal program execution, such as invalid input or accessing an array outside its bounds.
+
+16. Why close Scanner?
+To release the resource associated with it when input is no longer needed.
+
+------------------------------------------------------------
+LAST-MINUTE ORAL REVISION
+------------------------------------------------------------
+
+- Fibonacci: F(n)=F(n-1)+F(n-2). Iterative O(n); simple recursive exponential.
+- Job Sequencing: Sort by profit; place each job in the latest free slot before its deadline.
+- Fractional Knapsack: Sort by profit/weight; fractions are allowed; O(n log n).
+- 0/1 Knapsack: Include or exclude; use DP table; O(nW).
+- Binomial Coefficient: Pascal recurrence; C(n,r)=C(n-1,r-1)+C(n-1,r).
+- 8-Queens: Eight queens, no shared row/column/diagonal; backtracking.
+- N-Queens: General N×N version; no solutions for N=2 or N=3.
+- Quick Sort: Pivot + partition + recursion; average O(n log n), worst O(n²).
+- Greedy: Local choices.
+- DP: Store and reuse subproblem results.
+- Backtracking: Try, explore, undo.
+- Divide and conquer: Divide, solve, combine.
+- Big-O: Asymptotic upper bound.
+- Recursion base case: Condition that stops recursive calls.
+- Pruning: Stop exploring an invalid or unpromising branch.
+
+EXAM TIP
+When an external examiner asks about a practical, answer in this order:
+1. State the problem and objective.
+2. Name the algorithmic technique.
+3. Explain the main idea in 2–3 steps.
+4. State the key condition/recurrence.
+5. Give time and space complexity.
+6. Mention one limitation or difference from a related algorithm.
+
+END OF NOTES
